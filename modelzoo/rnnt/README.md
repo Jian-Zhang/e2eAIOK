@@ -13,7 +13,7 @@ public reference on train-clean-100: https://arxiv.org/pdf/1807.10893.pdf, https
 git clone https://github.com/intel/e2eAIOK.git
 cd e2eAIOK
 git submodule update --init --recursive
-python3 scripts/start_e2eaiok_docker.py -b pytorch -w ${host0} ${host1} ${host2} ${host3} --proxy ""
+python3 scripts/start_e2eaiok_docker.py -b pytorch110 -w ${host0} ${host1} ${host2} ${host3} --proxy ""
 ```
 
 ## Enter Docker
@@ -28,6 +28,11 @@ cd /home/vmagent/app/e2eaiok/modelzoo/rnnt/pytorch
 bash patch_rnnt.sh
 
 # Download Dataset
+# Download and unzip dataset from https://www.openslr.org/12 to /home/vmagent/app/dataset/LibriSpeech
+
+# Generate tokenizer and tokenize text
+cd /home/vmagent/app/e2eaiok/modelzoo/rnnt/pytorch
+bash scripts/preprocess_librispeech.sh
 ```
 
 ## Training
@@ -46,5 +51,5 @@ epochs: 2
 ```
 
 ```
-cd /home/vmagent/app/e2eaiok && python run_e2eaiok.py --data_path /home/vmagent/app/dataset/LibriSpeech --model_name rnnt --conf conf/e2eaiok_defaults_rnnt_example.conf --no_sigopt
+cd /home/vmagent/app/e2eaiok && python run_e2eaiok.py --data_path /home/vmagent/app/dataset/LibriSpeech --model_name rnnt --conf conf/e2eaiok_defaults_rnnt_example.conf 
 ```

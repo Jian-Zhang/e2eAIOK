@@ -14,7 +14,7 @@ How to run
 
 .. code-block:: bash
 
-    python run_e2eaiok.py --data_path ${dataset_path} --model_name [dlrm, wnd, dien, pipeline_test, twitter_recsys, rnnt, tpcxai09] --no_sigopt
+    python run_e2eaiok.py --data_path ${dataset_path} --model_name [dlrm, wnd, dien, pipeline_test, twitter_recsys, rnnt, tpcxai09] 
 
 * For user-define model
 
@@ -34,7 +34,7 @@ What is the input
   
   * metadata.yaml - file
   
-* modication of conf/hydroai_defaults.conf
+* modication of conf/e2eaiok_defaults.conf
 
 Pre-processed Data
 ------------------
@@ -81,15 +81,15 @@ Quick Start
     #     └── test_data.bin
 
     # Use e2eaiok API
-    SIGOPT_API_TOKEN=${TOKEN} python run_e2eaiok.py --data_path "/home/vmagent/app/dataset/criteo" --model_name dlrm --conf conf/hydroai_defaults_dlrm_example.conf
+    SIGOPT_API_TOKEN=${TOKEN} python run_e2eaiok.py --data_path "/home/vmagent/app/dataset/criteo" --model_name dlrm --conf conf/e2eaiok_defaults_dlrm_example.conf
 
     # Use SDA API
-    SIGOPT_API_TOKEN=${TOKEN} python SDA/SDA.py --data_path "/home/vmagent/app/dataset/criteo" --model_name dlrm --conf conf/hydroai_defaults_dlrm_example.conf
+    SIGOPT_API_TOKEN=${TOKEN} python SDA/SDA.py --data_path "/home/vmagent/app/dataset/criteo" --model_name dlrm --conf conf/e2eaiok_defaults_dlrm_example.conf
 
 * Test WnD
 .. code-block:: bash
 
-    source /opt/intel/oneapi/setvars.sh --ccl-configuration=cpu_icc --force
+    source /opt/intel/oneapi/setvars.sh --force
     # prepare data
     # tree -d 1 ../dataset/outbrain/
     # 1 [error opening dir]
@@ -99,21 +99,21 @@ Quick Start
     # ├── train
     # └── valid
 
-    # change hosts and eth in conf/hydroai_defaults_wnd_example.conf
+    # change hosts and eth in conf/e2eaiok_defaults_wnd_example.conf
     # iface: ${eth0}
     # hosts:
     #   - ${host_name}
 
     # Use e2eaiok API
-    SIGOPT_API_TOKEN=${TOKEN} python run_e2eaiok.py --data_path "/home/vmagent/app/dataset/outbrain" --model_name wnd --conf conf/hydroai_defaults_wnd_example.conf
+    SIGOPT_API_TOKEN=${TOKEN} python run_e2eaiok.py --data_path "/home/vmagent/app/dataset/outbrain" --model_name wnd --conf conf/e2eaiok_defaults_wnd_example.conf
 
     # Use SDA API
-    SIGOPT_API_TOKEN=${TOKEN} python SDA/SDA.py --data_path "/home/vmagent/app/dataset/outbrain" --model_name wnd --conf conf/hydroai_defaults_wnd_example.conf
+    SIGOPT_API_TOKEN=${TOKEN} python SDA/SDA.py --data_path "/home/vmagent/app/dataset/outbrain" --model_name wnd --conf conf/e2eaiok_defaults_wnd_example.conf
     
  * Test DIEN
 .. code-block:: bash
 
-    source /opt/intel/oneapi/setvars.sh --ccl-configuration=cpu_icc --force
+    source /opt/intel/oneapi/setvars.sh --force
     # dataset layout
     #  tree ../dataset/amazon_reviews/
     # ../dataset/amazon_reviews/

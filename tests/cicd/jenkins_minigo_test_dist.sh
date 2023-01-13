@@ -19,8 +19,10 @@ mkdir -p $tmp_dir
 set -e
 # lauch e2eaiok minigo
 cd modelzoo/minigo
-conda activate minigo_xeon_opt
-yes "" | ./cc/configure_tensorflow.sh
+conda activate minigo
+printf "\n" | ./cc/configure_tensorflow.sh
+export HOME=/root
+./ml_perf/scripts/cc_libgen_parallel_selfplay.sh
 # make MiniGo CI/CD test process faster
 sed -i '/--winrate=/ s/=.*/=0.003/' ml_perf/flags/19/train_loop.flags
 sed -i '/--eval=/ s/=.*/=1/' ml_perf/flags/19/train_loop.flags
@@ -29,9 +31,9 @@ sed -i '/--min_games_per_iteration=/ s/=.*/=4096/' ml_perf/flags/19/train_loop.f
 cd ../../
 [[ -d result ]] || mkdir result
 if [ $USE_SIGOPT == 1 ]; then
-  SIGOPT_API_TOKEN=$SIGOPT_API_TOKEN python run_e2eaiok.py --data_path $DATA_PATH --model_name $MODEL_NAME --conf $CONF_FILE --custom_result_path $tmp_dir 2>&1 | tee $tmp_dir/e2eaiok_cicd.log
+  SIGOPT_API_TOKEN=$SIGOPT_API_TOKEN python run_e2eaiok.py --data_path $DATA_PATH --model_name $MODEL_NAME --conf $CONF_FILE --enable_sigopt --custom_result_path $tmp_dir 2>&1 | tee $tmp_dir/e2eaiok_cicd.log
 else
-  python run_e2eaiok.py --data_path $DATA_PATH --model_name $MODEL_NAME --conf $CONF_FILE --no_sigopt --custom_result_path $tmp_dir 2>&1 | tee $tmp_dir/e2eaiok_cicd.log
+  python run_e2eaiok.py --data_path $DATA_PATH --model_name $MODEL_NAME --conf $CONF_FILE  --custom_result_path $tmp_dir 2>&1 | tee $tmp_dir/e2eaiok_cicd.log
 fi
 
 # test
